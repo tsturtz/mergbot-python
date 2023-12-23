@@ -1,0 +1,33 @@
+### HEALTH
+GET http://localhost:8000/health
+
+### WEBHOOK VERIFY
+GET http://localhost:8000/webhook
+  ?hub.mode=subscribe
+  &hub.verify_token=MERGISTHEWORD
+  &hub.challenge=1158201444
+
+### WEBHOOK EVENT
+POST http://localhost:8000/webhook
+content-type: application/json
+
+{
+  "object": "page",
+  "entry": [
+    {
+      "id": "207548039102129",
+      "time": 1703228896565,
+      "messaging": [
+        {
+          "sender": { "id": "24615376288076083" },
+          "recipient": { "id": "207548039102129" },
+          "timestamp": 1703228896303,
+          "message": {
+            "mid": "m__lIkiJE-tysHQ6gfcvTHUCMMb-JBc2WdNJJtnc3bB9yeSFvir-E09LXFPksbSsE0j2XJEUQLOwpJNLV8ij_7sQ",
+            "text": "test msg from vscode"
+          }
+        }
+      ]
+    }
+  ]
+}
