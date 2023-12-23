@@ -57,8 +57,6 @@ def verify(
     mode: Optional[str] = Query("subscribe", alias="hub.mode", regex="^[A-Za-z1-9-_]*$"),
 ) -> Optional[str]:
     token = getenv("VERIFY_TOKEN")
-    logger.info("hullo")
-    logger.info(token)
     if verify_token == token and mode == "subscribe":
         logger.info("WEBHOOK_VERIFIED")
         # Respond with the challenge token from the request
@@ -68,10 +66,9 @@ def verify(
 
 @app.post("/webhook")
 def event(body: Body):
-    logger.info("in func")
+    logger.info("event: " + body)
     try:
         sender_id = body.entry[0].messaging[0].sender.id
-        base_url_graph_facebook = "https://graph.facebook.com/v18.0";
         request_body = {
             "recipient": {"id": sender_id},
             "message": {"text": "WE MERG'N LETS GO!"},
@@ -79,7 +76,7 @@ def event(body: Body):
             "access_token": getenv("PAT"),
         }
         logger.info(request_body)
-        
+
         response = requests.post(
             "https://graph.facebook.com/v18.0/" + getenv("PAGE_ID") + "/messages",
             json=request_body,
