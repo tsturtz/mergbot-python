@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 from os import getenv
@@ -66,12 +67,16 @@ def verify(
 
 @app.post("/webhook")
 def event(body: Body):
-    logger.info("event: " + body)
     try:
         sender_id = body.entry[0].messaging[0].sender.id
+        sender_msg = body.entry[0].messaging[0].message.text;
+        logger.info("incoming message: " + sender_msg)
+        outgoing_msg = "wassup"
+        if sender_msg == "merg":
+            outgoing_msg = "merg is the word"
         request_body = {
             "recipient": {"id": sender_id},
-            "message": {"text": "WE MERG'N LETS GO!"},
+            "message": {"text": outgoing_msg},
             "messaging_type": "RESPONSE",
             "access_token": getenv("PAT"),
         }
