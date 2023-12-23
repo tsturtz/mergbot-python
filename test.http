@@ -4,7 +4,7 @@ GET http://localhost:8000/health
 ### WEBHOOK VERIFY
 GET http://localhost:8000/webhook
   ?hub.mode=subscribe
-  &hub.verify_token=MERGISTHEWORD
+  &hub.verify_token=TOKEN
   &hub.challenge=1158201444
 
 ### WEBHOOK EVENT
